@@ -72,7 +72,7 @@ pipeline {
                     }
                 }
                 // start new container
-                sh '${SSH_CMD} "docker run -d --name ${IMAGE_NAME} -p 80:80 ${IMAGE_NAME}"'
+                sh '${SSH_CMD} "docker run -d -e \'MYSQL_HOST_READ=${MYSQL_HOST_READ}\' -e \'MYSQL_HOST_WRITE=${MYSQL_HOST_WRITE}\' -e \'MYSQL_USER=${MYSQL_USER}\' -e \'MYSQL_PASSWORD=${MYSQL_PASSWORD}\' --name ${IMAGE_NAME} -p 80:80 ${IMAGE_NAME}"'
 
                 // TODO: run final tests
 
