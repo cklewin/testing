@@ -62,6 +62,7 @@ pipeline {
             environment {
                 // get original deploy container
                 PREVIOUS_CONTAINER = sh(returnStdout: true, script: '${SSH_CMD} "docker container ls -f publish=80/tcp -q"').trim()
+		MYSQL_PASSWORD = credentials('MYSQL_PASSWORD') 
             }
             steps {
                 script {
