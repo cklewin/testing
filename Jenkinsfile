@@ -7,7 +7,7 @@ pipeline {
     }
     environment {
         BUILD_FOLDER = "${'builds/' + env.BRANCH_NAME + '/' + env.BUILD_NUMBER}"
-        IMAGE_NAME = "${'movie-api-php.' + env.BRANCH_NAME + ':' + env.BUILD_NUMBER}"
+        IMAGE_NAME = "${'movie-api-php.' + env.BRANCH_NAME}"
         SSH_CMD = "${'ssh ' + env.DEPLOY_USER + '@' + env.DEPLOY_HOST}"
     }
     stages {
