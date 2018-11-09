@@ -22,7 +22,7 @@ pipeline {
             steps {
                 // this step is only needed if the src/vendor folder is left out of the repo
                 //sh '${SSH_CMD} "cd ~/${BUILD_FOLDER} && ./composer-install.sh"'
-                sh '${SSH_CMD} "docker build -t ${IMAGE_NAME} ~/${BUILD_FOLDER}"'
+                sh '${SSH_CMD} "docker build -t ${IMAGE_NAME}:{$BUILD_NUMBER} ~/${BUILD_FOLDER}"'
             }
         }
         stage('Test') {
