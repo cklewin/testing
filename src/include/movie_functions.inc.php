@@ -7,7 +7,7 @@ function createMovie($username, $args) {
 		'success'	=> false,
 	);
 
-        $res = sanitizeMovieParams($args, MOVIE_CONSTRAINTS['required_params']);
+        $res = sanitizeMovieParams(array_merge($args, array('username'=>$username)), MOVIE_CONSTRAINTS['required_params']);
         if ($res['success'] != true) {
                 $response['http_status'] = 400;
                 $response['messages'] = array_merge($response['messages'], $res['messages']);
@@ -64,7 +64,7 @@ function updateMovie($username, $movie_id, $args) {
                 return($response);
         }
 
-        $res = sanitizeMovieParams($movie_data_new, MOVIE_CONSTRAINTS['required_params']);
+        $res = sanitizeMovieParams(array_merge($movie_data_new, array('username'=>$username)), MOVIE_CONSTRAINTS['required_params']);
         if ($res['success'] != true) {
                 $response['http_status'] = 400;
                 $response['messages'] = array_merge($response['messages'], $res['messages']);
@@ -147,6 +147,12 @@ function getMovie($movie_id) {
 		'messages'	=> array(),
 		'success'	=> false,
 	);
+
+	if (empty($movie_id)) {
+                $response['http_status'] = 400;
+                $response['messages'][] = 'movie_id is required';
+                return($response);
+	}
 
 	$res = sanitizeMovieParams(array(
 		'movie_id' => $movie_id,
